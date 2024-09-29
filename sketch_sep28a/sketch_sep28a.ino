@@ -42,9 +42,25 @@ void testMotor1(int ENA, int IN1, int IN2){
 
 void testMotor2(int IN3, int IN4, int ENB){
   Serial.println("Testing motor N°2.");
-  changeDirections(in3, in4);
+  goForward(IN3, IN4);
+  accelerate(ENB);
+  goReverse(IN3, IN4);
   accelerate(ENB);
   Serial.println("Testing successfull.");
+}
+
+void goReverse(int negative, int positive){
+  Serial.println("Turning right...");
+  digitalWrite(negative, HIGH);
+  digitalWrite(positive, LOW);
+  delay(3000);
+}
+
+void goForward(int negative, int positive){
+  Serial.println("Turning left...");
+  digitalWrite(negative, LOW);
+  digitalWrite(positive, HIGH);
+  delay(3000);    
 }
 
 void accelerate(int pin){
@@ -55,19 +71,6 @@ void accelerate(int pin){
   Serial.println("Done.");
   delay(2000);
 
-}
-
-void changeDirections(int negative, int positive){
-  Serial.println("Turning right...");
-  digitalWrite(negative, HIGH);
-  digitalWrite(positive, LOW);
-  delay(3000);
-  Serial.println("Turning left...");
-  digitalWrite(negative, LOW);
-  digitalWrite(positive, HIGH);
-  delay(3000);
-  Serial.println("Done.");
-  delay(3000);
 }
 
 void testingPin(int pin){
