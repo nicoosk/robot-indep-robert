@@ -50,14 +50,12 @@ void testMotor2(int IN3, int IN4, int ENB){
 }
 
 void goReverse(int negative, int positive){
-  Serial.println("Turning right...");
   digitalWrite(negative, HIGH);
   digitalWrite(positive, LOW);
   delay(3000);
 }
 
 void goForward(int negative, int positive){
-  Serial.println("Turning left...");
   digitalWrite(negative, LOW);
   digitalWrite(positive, HIGH);
   delay(3000);    
