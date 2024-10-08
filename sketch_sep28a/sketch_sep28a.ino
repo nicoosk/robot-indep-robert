@@ -18,12 +18,19 @@ void setup() {
   pinMode(enb, OUTPUT);
   pinMode(in4, OUTPUT);
   pinMode(in3, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  analogWrite(enb, 0);
+  digitalWrite(in4, LOW);
+  digitalWrite(in3, LOW);
 }
 
 void loop() {
-  testMotor2(in3, in4, enb);
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
 
-  
+  testMotor2(in3, in4, enb);
 }
 
 void testMotor1(int ENA, int IN1, int IN2){
@@ -52,13 +59,11 @@ void testMotor2(int IN3, int IN4, int ENB){
 void goReverse(int negative, int positive){
   digitalWrite(negative, HIGH);
   digitalWrite(positive, LOW);
-  delay(3000);
 }
 
 void goForward(int negative, int positive){
   digitalWrite(negative, LOW);
-  digitalWrite(positive, HIGH);
-  delay(3000);    
+  digitalWrite(positive, HIGH);   
 }
 
 void accelerate(int pin){
