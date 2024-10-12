@@ -8,6 +8,14 @@ void inicializarServo(int pin){
     servo.attach(pin);
 }
 
-void moverServo(int grados){
-    servo.write(grados);
+void mirarIzquierda(){
+    servo.write(170);
+}
+
+void mirarFrente(){
+    servo.write(80);
+}
+
+void mirarDerecha(){
+    servo.write(1);
 }
