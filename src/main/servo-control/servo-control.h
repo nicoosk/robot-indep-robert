@@ -2,6 +2,8 @@
 #define SERVO_CONTROL_H
 
 void inicializarServo(int pin);
-void moverServo(int grados);
+void mirarIzquierda();
+void mirarFrente();
+void mirarDerecha();
 
 #endif
