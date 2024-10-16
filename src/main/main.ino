@@ -35,7 +35,6 @@ void loop(){
   neutro(in3, in4, enb);
 
   testServo();
-  // hola
   delay(1000);
 }
 
