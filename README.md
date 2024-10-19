@@ -50,6 +50,12 @@ Este proyecto utiliza un **Arduino Uno R3** para controlar motores y sensores. L
 
 ---
 
+## Estructura del Proyecto
+Este proyecto está creado con una ideologia tipo controlador/implementación. Dentro de las diferentes 
+
+--- 
+
+
 ## Uso del código
 Para poder utilizar este código de manera adecuada, aquí te presento una serie de pasos que debes tener en cuenta para implementar las funciones adecuadas.
 
