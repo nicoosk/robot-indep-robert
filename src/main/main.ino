@@ -1,7 +1,8 @@
-#include "motores/motores.h"
-#include "motores/motores.cpp"
-#include "servo-control/servo-control.h"
-#include "servo-control/servo-control.cpp"
+#include "../controladores/motores/motores.h"
+#include "../controladores/motores/motores.cpp"
+#include "../controladores/servo-control/servo-control.h"
+#include "../controladores/servo-control/servo-control.cpp"
+#include <Arduino.h>
 
 int in1 = 8;
 int in2 = 7;
