@@ -51,9 +51,6 @@ Este proyecto utiliza un **Arduino Uno R3** para controlar motores y sensores. L
 ---
 
 ## Estructura del Proyecto
-
-Este proyecto está creado con una ideologia tipo controlador/implementación. Dentro de las diferentes 
-=======
 Este proyecto está creado con una ideologia tipo controlador/implementación. Dentro de las diferentes carpetas se encuentran controladores para ciertas funciones especificas. Utiliza la estructura que se encuentre dentro del directorio `src/`. Dentro de esta carpeta se encuentran los siguientes directorios:
 - **Controladores:** Aqui se encuentran las funciones principales del Robert, tales como la aceleración, el funcionamiento del Servo Motor, entre otros. Deberías acceder a este directorio solo para revisar la sintaxis y asegurarte de que implementes de manera adecuada las funciones.
 - **Implementaciones:** En este directorio podemos encontrar las implementaciones de funcionamiento principal del Robert. Implementaciones tales como girar en 180°, buscar objetos cercanos o incluso frenar deberían estar alojadas en este directorio. 
