@@ -68,8 +68,8 @@ Para poder utilizar este código de manera adecuada, aquí te presento una serie
 1. **Incluir la ruta del archivo a implementar:** Para poder incluir la funciónalidad de un archivo en especifico, haremos uso de la palabra clave `#include`, propia del lenguaje de programacion C++. Si por ejemplo, quieres hacer uso de la función `acelerarMotorTrasero() `, deberías incluir la siguiente línea en tu archivo:
 
 ``` c++
-#include "../controladores/motores/motores.h"
-#include "../controladores/motores/motores.cpp"
+#include "controladores/motores/motores.h"
+#include "controladores/motores/motores.cpp"
 ```
 De esta manera, podrás incluir dentro de tus métodos la función `acelerarMotorTrasero()`, la cual solo se encuentra definida e implementada dentro de los directorios mencionados.
 
@@ -81,8 +81,8 @@ Primeramente, en el directorio `implementaciones/` debemos escribir el código p
 frenar.cpp:
 ``` c++
 // Incluimos los controladores de los motores.
-#include "../controladores/motores/motores.h"
-#include "../controladores/motores/motores.cpp"
+#include "controladores/motores/motores.h"
+#include "controladores/motores/motores.cpp"
 
 // Agregamos la siguiente línea para indicarle al compilador que se trata de código de Arduino.
 #include <Arduino.h>
@@ -172,6 +172,8 @@ git fetch origin
 git pull origin main
 ```
 De esta manera evitamos conflictos y nos aseguramos de que todo fluya según lo acordado.
+
+NOTA: La rama main está protegida y no es posible hacerle push directamente para que no se rompa nada. Por lo que es muy importante el Pull Request desde sus forks hacia la rama que tienen designada.
 
 ### Mensaje de commit
 Para que los cambios sean lo más uniformes posibles, estoy siguiendo una sintáxis en los commits que hago. Un ejemplo puede ser el siguiente:
