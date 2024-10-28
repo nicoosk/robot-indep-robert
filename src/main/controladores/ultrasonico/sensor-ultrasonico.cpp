@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "sensor_ultrasonico.h"
+#include "sensor-ultrasonico.h"
 
 void inicializarUltrasonico(int trig, int echo){
   pinMode(trig, OUTPUT);

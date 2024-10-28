@@ -3,7 +3,7 @@
 
 void inicializarUltrasonico(int trig, int echo);
 void estadoInicial(int trig, int echo);
-void enviarPulso(int trig, int echo);
+float enviarPulso(int trig, int echo);
 float calcularDistancia(int echo);
 
 #endif
