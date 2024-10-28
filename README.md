@@ -138,39 +138,39 @@ git config --global user.email "correo electronico"
 
 De esta manera tu git queda conectado a tu cuenta de GitHub correctamente.
 
-Para clonar el repo, primero haz un **fork**, y una vez creado ese fork clonalo con la siguiente línea:
+Para clonar el repo, ejecuta la siguiente línea en donde quieras guardar este repo:
 ``` bash
-git clone https://github.com/tu-usuario/robot-indep-robert.git
+git clone https://github.com/nicoosk/robot-indep-robert.git
 ```
+Una vez clonado el repo, haz los cambios que necesites hacer y haz un **push** a tu rama con tu nombre. Por ejemplo:
 
-Luego de esto, haz los cambios o genera nuevas propuestas y haz **commit** de ellos. Para subir tus cambios a GitHub, haz un **push** con todos tus cambios y luego haz un **Pull Request** hacia el repositorio original. Como ya sé quienes aportaran en el proyecto, cada uno de ustedes tiene una rama específica asignada, por lo que asegúrense de llevar los cambios desde su copia en su repositorio hasta el repo original pero a la rama que les corresponda. Aquí una serie de pasos:
 ``` bash
-# hacemos fetch para actualizar referencias
-git fetch origin
+# Hago un commit de los cambios que hice
+git commit -m "arreglado el sensor"
 
-# commit de cambios
-git commit -m "fix: arreglando referencias de include"
-
-# hacemos push desde nuestra rama main local hacia nuestro repo fork
-git push origin main
+# haces un push a tu rama desde la rama local de donde estás trabajando. En mi caso, la rama que me pertenece se llama "nicolas" y estoy trabajando en mi rama main.
+git push origin main:nicolas # aqui cambias lo que viene después de los dos puntos (:) por la rama con tu nombre
 ```
-Una vez hecho el push hacia tu repo forkeado, debes hacer el **Pull Request**. Asegúrate que se vea de la siguiente forma:
+Con esto tu rama queda con tus cambios y puedes hacer un Pull Request a la rama **main** de GitHub. A continuación te presento como se hace.
 
-
-<img width="926" alt="Captura de pantalla 2024-10-19 a la(s) 15 05 52" src="https://github.com/user-attachments/assets/5964d1f3-3f93-4efb-93ce-5ca685a60811">
-
-En donde **base** es el repo original, aquí deberías poner el nombre de tu rama para subir tus cambios.
+### Haciendo un Pull Request
+Para hacer un Pull Request, tienes que dirigirte a GitHub e ir a tu rama en el repositorio. Una vez aquí, debería salirte un mensaje alertandote que se puede hacer un Pull Request porque hay cambios en tu rama. Una vez listo el título y descripción del Pull Request, lo diriges a la rama **main** de este mismo repo para su posterior aprobación.
 
 #### Importante:
-Asegúrense que **SIEMPRE** mantengan sus forks actualizados. Si no los tienen actualizados a su versión más reciente, es muy posible que existan conflictos y no los deje subir sus cambios. Con el botón `Contribute` en sus forks pueden actualizar sus repos al estado del original. Como agregado, asegúrense de siempre ejecutar estas líenas cada tanto tiempo:
+Asegúrense que **SIEMPRE** mantengan sus ramas actualizadas. Si no las tienen actualizadas a su versión más reciente, es muy posible que existan conflictos y no les deje subir sus cambios. Para actualizar sus ramas, deben ejecutar los siguientes comandos:
 
 ``` bash
-// Actualizar sus referencias a nuevas ramas.
+# Actualizar sus referencias a nuevas ramas.
 git fetch origin
 
-// Traer cambios a su copia local en caso de existir.
-git pull origin main
+# Traer cambios del main a su copia local
+git checkout main-local
+git pull
+
+# Subir los cambios a tu rama remota
+git push origin main-local:tu-nombre
 ```
+
 De esta manera evitamos conflictos y nos aseguramos de que todo fluya según lo acordado.
 
 NOTA: La rama main está protegida y no es posible hacerle push directamente para que no se rompa nada. Por lo que es muy importante el Pull Request desde sus forks hacia la rama que tienen designada.
