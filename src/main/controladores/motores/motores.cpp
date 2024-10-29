@@ -30,19 +30,29 @@ void neutro(int P1, int P2, int OUT){
 }
 
 void potenciar(int OUT){
-    analogWrite(OUT, 200);
+    analogWrite(OUT, 150);
 }
 
 void despotenciar(int OUT){
     analogWrite(OUT, 0);
 }
 
-void cambiarDireccionDerecha(int P1, int P2){
-    positivoNegativo(P1, P2);
+void retroceder(int OUT){
+    analogWrite(OUT, 255);
 }
 
-void cambiarDireccionIzquierda(int P1, int P2){
+void cambiarDireccionDerecha(int P1, int P2, int OUT){
+    positivoNegativo(P1, P2);
+    potenciar(OUT);
+    delayMicroseconds(50);
+    despotenciar(OUT);
+}
+
+void cambiarDireccionIzquierda(int P1, int P2, int OUT){
     negativoPositivo(P1, P2);
+    potenciar(OUT);
+    delayMicroseconds(50);
+    despotenciar(OUT);
 }
 
 void acelerarMotorTrasero(int P1, int P2, int OUT){
@@ -52,5 +62,5 @@ void acelerarMotorTrasero(int P1, int P2, int OUT){
 
 void retrocederMotorTrasero(int P1, int P2, int OUT){
     negativoPositivo(P1, P2);
-    potenciar(OUT);
+    retroceder(OUT);
 }

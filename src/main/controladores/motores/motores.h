@@ -8,9 +8,10 @@ void negativoPositivo(int P1, int P2);
 void neutro(int P1, int P2, int OUT);
 void potenciar(int OUT);
 void despotenciar(int OUT);
+void retroceder(int OUT);
 
-void cambiarDireccionDerecha(int P1, int P2);
-void cambiarDireccionIzquierda(int P1, int P2);
+void cambiarDireccionDerecha(int P1, int P2, int OUT);
+void cambiarDireccionIzquierda(int P1, int P2, int OUT);
 void acelerarMotorTrasero(int P1, int P2, int OUT);
 void retrocederMotorTrasero(int P1, int P2, int OUT);
 

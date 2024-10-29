@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "sensor_ultrasonico.h"
+#include "sensor-ultrasonico.h"
 
 void inicializarUltrasonico(int trig, int echo){
   pinMode(trig, OUTPUT);
@@ -10,7 +10,7 @@ void estadoInicial(int trig){
     digitalWrite(trig, LOW);
 }
 
-void enviarPulso(int trig, int echo){
+float enviarPulso(int trig, int echo){
     digitalWrite(trig, LOW);
     delayMicroseconds(2);
     digitalWrite(trig, HIGH);
@@ -25,6 +25,7 @@ void enviarPulso(int trig, int echo){
     Serial.print("Distancia: ");
     Serial.print(distancia);
     Serial.println(" cm");
+    return distancia;
 
 }
 
