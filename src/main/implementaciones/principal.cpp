@@ -36,42 +36,56 @@ void construir(int in1, int in2, int ena, int in3, int in4, int enb, int pinServ
     Serial.println("Funciones construidas.");
 }
 
-int verificarLaterales(){
+void verificarLaterales(){
     mirarDerecha();
     delay(1000);
-    if (enviarPulso(trig, echo) < 30){
-        return 0;
-    } else {
-        Serial.println("Nada a la derecha.");
-    }
+    float distanciaDerecha = enviarPulso(trig, echo);
+    delay(500);
+
     mirarIzquierda();
     delay(1000);
-    if (enviarPulso(trig, echo) < 30){
-        return 1;
+    float distanciaIzquierda = enviarPulso(trig, echo);
+    delay(500);
+
+
+    Serial.print("Distancia derecha: ");
+    Serial.print(distanciaDerecha);
+    Serial.println(" cm");
+
+    Serial.print("Distancia Izquierda: ");
+    Serial.print(distanciaIzquierda);
+    Serial.println(" cm");
+
+    if (distanciaDerecha < 30 && distanciaIzquierda > 30){
+        Serial.println("Moviendo a la derecha.");
+        girarDerecha(in1, in2, ena, in3, in4, enb);
+    } else if (distanciaIzquierda < 30 && distanciaDerecha > 30){
+        Serial.println("Moviendo a la izquierda.");
+        girarIzquierda(in1, in2, ena, in3, in4, enb);
+    } else if (distanciaDerecha < 30 && distanciaIzquierda < 30){
+        Serial.println("Bloqueado. Retrocediendo...");
+        // retrocederMotorTrasero(in3, in4, enb);
+        delay(1000);
+        despotenciar(enb);
+        delay(500);
+        irAleatorio(in1, in2, ena, in3, in4, enb);
     } else {
-        Serial.println("Nada a la izquierda.");
+        Serial.println("No hay obstáculo cerca, girando aleatorio.");
+        irAleatorio(in1, in2, ena, in3, in4, enb);
     }
-    return -1;
 }
 
 void avanzarHastaObstaculo() {
+    neutro(in1, in2, ena);
+    neutro(in3, in4, enb);
     mirarFrente();
     acelerarMotorTrasero(in3, in4, enb);
-    if (enviarPulso(trig, echo) < 30) {
+    if (enviarPulso(trig, echo) < 40) {
         detenerse(in3, in4, enb);
-        delay(1000);
-        int lateral = verificarLaterales();
-        delay(1000);
-        if (lateral == 0) {
-            girarDerecha(in1, in2, ena, in3, in4, enb);
-        } else if (lateral == 1) {
-            girarIzquierda(in1, in2, ena, in3, in4, enb);
-        } else if (lateral == -1) {
-            // ir en dirección aleatoria
-            irAleatorio(in1, in2, ena, in3, in4, enb);
-        } 
+        delay(500);
+        // verificarLaterales();
     }
-    mirarFrente();
+    // mirarFrente();
     delay(200);
 }
 

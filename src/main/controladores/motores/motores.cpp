@@ -38,7 +38,7 @@ void despotenciar(int OUT){
 }
 
 void retroceder(int OUT){
-    analogWrite(OUT, 255);
+    analogWrite(OUT, 200);
 }
 
 void cambiarDireccionDerecha(int P1, int P2, int OUT){
