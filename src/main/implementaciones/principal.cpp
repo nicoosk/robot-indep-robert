@@ -8,6 +8,7 @@
 #include "girar.cpp"
 #include <Arduino.h>
 
+// Asignación de pines
 int in1 = 8;
 int in2 = 7;
 int ena = 11;
@@ -18,6 +19,15 @@ int pinServo = 5;
 int trig = 12;
 int echo = 13;
 
+
+
+// Variables para controlar Robert
+int ajuste = 0;
+float distanciaIzquierda = 0;
+float distanciaDerecha = 0;
+float distanciaFrontal= 0;
+
+// Inicializar pines
 void construir(int in1, int in2, int ena, int in3, int in4, int enb, int pinServo, int trig, int echo){
     ::in1 = in1;
     ::in2 = in2;
@@ -36,58 +46,28 @@ void construir(int in1, int in2, int ena, int in3, int in4, int enb, int pinServ
     Serial.println("Funciones construidas.");
 }
 
-void verificarLaterales(){
-    mirarDerecha();
-    delay(1000);
-    float distanciaDerecha = enviarPulso(trig, echo);
-    delay(500);
-
-    mirarIzquierda();
-    delay(1000);
-    float distanciaIzquierda = enviarPulso(trig, echo);
-    delay(500);
-
-
-    Serial.print("Distancia derecha: ");
-    Serial.print(distanciaDerecha);
-    Serial.println(" cm");
-
-    Serial.print("Distancia Izquierda: ");
-    Serial.print(distanciaIzquierda);
-    Serial.println(" cm");
-
-    if (distanciaDerecha < 30 && distanciaIzquierda > 30){
-        Serial.println("Moviendo a la derecha.");
-        girarDerecha(in1, in2, ena, in3, in4, enb);
-    } else if (distanciaIzquierda < 30 && distanciaDerecha > 30){
-        Serial.println("Moviendo a la izquierda.");
-        girarIzquierda(in1, in2, ena, in3, in4, enb);
-    } else if (distanciaDerecha < 30 && distanciaIzquierda < 30){
-        Serial.println("Bloqueado. Retrocediendo...");
-        // retrocederMotorTrasero(in3, in4, enb);
-        delay(1000);
-        despotenciar(enb);
-        delay(500);
-        irAleatorio(in1, in2, ena, in3, in4, enb);
-    } else {
-        Serial.println("No hay obstáculo cerca, girando aleatorio.");
-        irAleatorio(in1, in2, ena, in3, in4, enb);
-    }
-}
-
-void avanzarHastaObstaculo() {
-    neutro(in1, in2, ena);
-    neutro(in3, in4, enb);
-    mirarFrente();
+void avanzar(int ajuste) {
+    ajuste = calcularAjuste();
     acelerarMotorTrasero(in3, in4, enb);
-    if (enviarPulso(trig, echo) < 40) {
-        detenerse(in3, in4, enb);
-        delay(500);
-        // verificarLaterales();
+
+    if (distanciaIzquierda < 50 && distanciaDerecha > 50){
+        // TODO
+    } else if (distanciaDerecha < 50 && distanciaIzquierda > 50){
+        // TODO
+    } else if (distanciaDerecha < 50 && distanciaIzquierda < 50){
+        // TODO
+    } else {
+        // TODO
     }
-    // mirarFrente();
-    delay(200);
 }
 
+int calcularAjuste(){
+    // Medimos las distancias con cada sensor
+    distanciaIzquierda = medirIzquierda(trig, echo);
+    distanciaDerecha = medirDistancia(trig, echo);
+    distanciaFrontal = medirDistancia(trig, echo);
 
-
+    // Ajuste PID para mantener el auto al centro del pasillo
+    ajuste = controlPID(distanciaIzquierda, distanciaDerecha);
+    return ajuste;
+}

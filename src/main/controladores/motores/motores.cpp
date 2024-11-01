@@ -55,6 +55,10 @@ void cambiarDireccionIzquierda(int P1, int P2, int OUT){
     despotenciar(OUT);
 }
 
+void cambiarDireccionFrente(int P1, int P2, int OUT){
+    // TODO
+}
+
 void acelerarMotorTrasero(int P1, int P2, int OUT){
     positivoNegativo(P1, P2);
     potenciar(OUT);
