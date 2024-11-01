@@ -10,7 +10,7 @@ void estadoInicial(int trig){
     digitalWrite(trig, LOW);
 }
 
-float enviarPulso(int trig, int echo){
+float calcularDistancia(int trig, int echo){
     digitalWrite(trig, LOW);
     delayMicroseconds(2);
     digitalWrite(trig, HIGH);
@@ -28,9 +28,3 @@ float enviarPulso(int trig, int echo){
     return distancia;
 
 }
-
-float calcularDistancia(int echo){
-    long duracion = pulseIn(echo, HIGH);
-    return duracion * 0.034 / 2;;
-}
-
