@@ -1,8 +1,10 @@
+// medir-distancia.h
 #ifndef MEDIR_DISTANCIA_H
 #define MEDIR_DISTANCIA_H
 
+float medirIzquierda();
+float medirDerecha();
+float medirFrente();
+float controlPID(int distanciaIzquierda, int distanciaDerecha); 
 
-float medirIzquierda(int trig, int echo);
-float medirDerecha(int trig, int echo);
-float medirFrente(int trig, int echo);
-int controlPID();
+#endif

@@ -8,36 +8,37 @@ float errorAnterior = 0;
 float sumaError = 0;
 
 // Las constantes del PID
-const float Kp = 1.0;  // Constante proporcional
-const float Ki = 0.0;  // Constante integral
-const float Kd = 0.5;  // Constante derivativa
+const float Kp = 100.0;  // Constante proporcional
+const float Ki = 50.0;  // Constante integral
+const float Kd = 3.0;  // Constante derivativa
 
-float medirIzquierda(int trig, int echo){
+float medirIzquierda(){
   mirarIzquierda();
-  delay(100);
-  return calcularDistancia(trig, echo);
+  delay(300);
+  return calcularDistancia();
 }
 
-float medirDerecha(int trig, int echo){
+float medirDerecha(){
   mirarDerecha();
-  delay(100);
-  return calcularDistancia(trig, echo);
+  delay(300);
+  return calcularDistancia();
 }
 
-float medirFrente(int trig, int echo){
+float medirFrente(){
   mirarFrente();
-  delay(100);
-  return calcularDistancia(trig, echo);
+  delay(300);
+  return calcularDistancia();
 }
 
 
-int controlPID(int trig, int echo) {
-  float error = medirIzquierda(trig, echo) - medirDerecha(trig, echo);
+float controlPID(int distanciaIzquierda, int distanciaDerecha) {
+  float error = distanciaIzquierda - distanciaDerecha;
   sumaError += error;
   float deltaError = error - errorAnterior;
   errorAnterior = error;
 
   // Fórmula del control PID
   float ajuste = (Kp * error) + (Ki * sumaError) + (Kd * deltaError);
-  return (int)ajuste;
+
+  return ajuste;
 }

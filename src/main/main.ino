@@ -1,36 +1,33 @@
-#include "implementaciones/principal.cpp"
-#include "pid/medir-distancia.h"
-#include "pid/medir-distancia.cpp"
+// main.ino
+#include "cerebro/principal.h"
+#include "cerebro/principal.cpp"
 
-extern int in1;
-extern int in2;
-extern int ena;
-extern int in3;
-extern int in4;
-extern int enb;
-extern int pinServo;
-extern int trig;
-extern int echo;
+int in1 = 8;
+int in2 = 7;
+int ena = 11;
+int in3 = 4;
+int in4 = 2;
+int enb = 3;
+int pinServo = 5;
+int trig = 12;
+int echo = 13;
 
-void setup(){
-    construir(in1, in2, ena, in3, in4, enb, pinServo, trig, echo);
+// control
+bool hayObstaculoFrontal = false;
+bool irDerecha = false;
+
+void setup() {
     Serial.begin(9600);
+    inicializarMotorDelantero(in1, in2, ena);
+    inicializarMotorTrasero(in3, in4, enb);
+    inicializarServo(pinServo);
+    inicializarUltrasonico(trig, echo);
+
 }
 
 void loop() {
-    
-    // Si detecta una pared al frente, girar 360 grados
-    if (distanciaFrontal < 5.0) {
-        girar360Grados();
-    } 
-    // Si no hay pared en uno de los costados, girar 90 grados hacia ese lado
-    else if (distanciaIzquierda > 10.0) {
-        girar90Grados("izquierda");
-    } else if (distanciaDerecha > 10.0) {
-        girar90Grados("derecha");
-    } 
-    // Mantenerse al centro del pasillo
-    else {
-        avanzar(ajuste);
-    }
+    avanzar();
+    // verificarFrontal();
+
+
 }
