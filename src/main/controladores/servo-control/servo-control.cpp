@@ -6,6 +6,7 @@ Servo servo;
 
 void inicializarServo(int pin){
     servo.attach(pin);
+    mirarFrente();
 }
 
 void mirarIzquierda(){

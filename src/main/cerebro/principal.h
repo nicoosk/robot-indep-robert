@@ -11,9 +11,11 @@ extern int enb;
 extern int pinServo;
 extern int trig;
 extern int echo;
+extern int led;
 
-bool verificarFrontal();
+void verificarFrontal();
 void avanzar();
 float calcularAjuste();
+void elegirOpcion();
 
 #endif

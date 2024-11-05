@@ -9,6 +9,9 @@ int MOTOR_DELANTERO_IN3;
 int MOTOR_DELANTERO_IN4;
 int MOTOR_DELANTERO_ENB;
 
+const int ciclo = 1;
+int contador = 0;
+
 void inicializarMotorTrasero(int IN1, int IN2, int ENA){
     MOTOR_TRASERO_IN1 = IN1;
     MOTOR_TRASERO_IN2 = IN2;
@@ -46,19 +49,20 @@ void neutro(int P1, int P2, int OUT){
 }
 
 void potenciar(int OUT){
-    analogWrite(OUT, 110);
+    analogWrite(OUT, 200);
 }
 
 void potenciarDireccion(int OUT){
-    analogWrite(OUT, 255);
+    analogWrite(OUT, 1);
 }
 
 void despotenciar(int OUT){
     analogWrite(OUT, 0);
+    digitalWrite(OUT, LOW);
 }
 
 void retroceder(int OUT){
-    analogWrite(OUT, 200);
+    analogWrite(OUT, 255);
 }
 
 void cambiarDireccionDerecha(){
@@ -98,33 +102,61 @@ void detenerse(){
 void girarDerecha(){
     // Retrocede girando para cambiar dirección
     cambiarDireccionIzquierda();
+    delay(500);
     retrocederMotorTrasero();
-    delay(500);
+    delay(1000);
     despotenciar(MOTOR_TRASERO_ENA);
-    delay(500);
+    despotenciar(MOTOR_DELANTERO_ENB);
+    delay(800);
 
     // Va hacia la derecha
     cambiarDireccionDerecha();
+    delay(500);
     acelerarMotorTrasero();
-    delay(500);
+    delay(1000);
     despotenciar(MOTOR_TRASERO_ENA);
-    delay(500);
+    despotenciar(MOTOR_DELANTERO_ENB);
+    delay(800);
 }
 
 void girarIzquierda() {
     // Retrocede girando para cambiar dirección
     cambiarDireccionDerecha();
+    delay(500);
     retrocederMotorTrasero();
-    delay(500);
+    delay(1000);
     despotenciar(MOTOR_TRASERO_ENA);
-    delay(500);
+    despotenciar(MOTOR_DELANTERO_ENB);
+    delay(800);
 
     // Va hacia la izquierda
     cambiarDireccionIzquierda();
+    delay(500);
     acelerarMotorTrasero();
-    delay(500);
+    delay(1000);
     despotenciar(MOTOR_TRASERO_ENA);
-    delay(500);
+    despotenciar(MOTOR_DELANTERO_ENB);
+    delay(800);
+}
+
+void girar180(){
+    girarDerecha();
+
+    contador += 1;
+    if (contador == ciclo){
+        Serial.print("Contador : ");
+        Serial.println(contador);
+        Serial.println("Se vuelve a ejecutar para girar en 180°.");
+        girar180();
+    } else if (contador > ciclo){
+        Serial.println("Giro completado.");
+        
+        Serial.print("Contador : ");
+        Serial.println(contador);
+        Serial.println("Por lo tanto, estableciendo valor a 0.");
+        
+        contador = 0;
+    }
 }
 
 void irAleatorio(){

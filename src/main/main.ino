@@ -26,8 +26,34 @@ void setup() {
 }
 
 void loop() {
-    avanzar();
-    // verificarFrontal();
+  avanzar();
+  verificarFrontal();
+//   prueba();
+}
 
+void prueba(){
+  acelerarMotorTrasero();
+  delay(500);
+  despotenciar(enb);
+  delay(500);
+  retrocederMotorTrasero();
+  delay(500);
+  despotenciar(enb);
+  delay(500);
 
+  cambiarDireccionDerecha();
+  delay(500);
+  cambiarDireccionIzquierda();
+  delay(500);
+
+  mirarDerecha();
+  delay(500);
+  mirarIzquierda();
+  delay(500);
+  mirarFrente();
+  delay(500);
+
+  float distancia = calcularDistancia();
+  Serial.print("Distancia: ");
+  Serial.println(distancia);
 }
