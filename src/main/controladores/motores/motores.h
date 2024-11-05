@@ -20,6 +20,7 @@ void retrocederMotorTrasero();
 void detenerse();
 void girarDerecha();
 void girarIzquierda();
+void girar180();
 void irAleatorio();
 
 #endif
