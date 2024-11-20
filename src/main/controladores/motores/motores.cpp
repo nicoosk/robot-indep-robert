@@ -1,172 +1,63 @@
 #include <Arduino.h>
-#include "motores.h"
 
-int MOTOR_TRASERO_IN1;
-int MOTOR_TRASERO_IN2;
-int MOTOR_TRASERO_ENA;
+class Motor {
+private:
+    int pinIN1;
+    int pinIN2;
+    int pinEN;
+    
+public:
+    // Constructor para inicializar los pines
+    Motor(int IN1, int IN2, int EN) {
+        pinIN1 = IN1;
+        pinIN2 = IN2;
+        pinEN = EN;
 
-int MOTOR_DELANTERO_IN3;
-int MOTOR_DELANTERO_IN4;
-int MOTOR_DELANTERO_ENB;
-
-const int ciclo = 1;
-int contador = 0;
-
-void inicializarMotorTrasero(int IN1, int IN2, int ENA){
-    MOTOR_TRASERO_IN1 = IN1;
-    MOTOR_TRASERO_IN2 = IN2;
-    MOTOR_TRASERO_ENA = ENA;
-
-    pinMode(MOTOR_TRASERO_IN1, OUTPUT);
-    pinMode(MOTOR_TRASERO_IN2, OUTPUT);
-    pinMode(MOTOR_TRASERO_ENA, OUTPUT);
-}
-
-void inicializarMotorDelantero(int IN3, int IN4, int ENB){
-    MOTOR_DELANTERO_IN3 = IN3;
-    MOTOR_DELANTERO_IN4 = IN4;
-    MOTOR_DELANTERO_ENB = ENB;
-
-    pinMode(MOTOR_DELANTERO_IN3, OUTPUT);
-    pinMode(MOTOR_DELANTERO_IN4, OUTPUT);
-    pinMode(MOTOR_DELANTERO_ENB, OUTPUT);
-}
-
-void positivoNegativo(int P1, int P2){
-    digitalWrite(P1, HIGH);
-    digitalWrite(P2, LOW);
-}
-
-void negativoPositivo(int P1, int P2){
-    digitalWrite(P1, LOW);
-    digitalWrite(P2, HIGH);
-}
-
-void neutro(int P1, int P2, int OUT){
-    digitalWrite(P1, LOW);
-    digitalWrite(P2, LOW);
-    analogWrite(OUT, 0);
-}
-
-void potenciar(int OUT){
-    analogWrite(OUT, 200);
-}
-
-void potenciarDireccion(int OUT){
-    analogWrite(OUT, 1);
-}
-
-void despotenciar(int OUT){
-    analogWrite(OUT, 0);
-    digitalWrite(OUT, LOW);
-}
-
-void retroceder(int OUT){
-    analogWrite(OUT, 255);
-}
-
-void cambiarDireccionDerecha(){
-    positivoNegativo(MOTOR_DELANTERO_IN3, MOTOR_DELANTERO_IN4);
-    potenciarDireccion(MOTOR_DELANTERO_ENB);
-    delayMicroseconds(5);
-    despotenciar(MOTOR_DELANTERO_ENB);
-}
-
-void cambiarDireccionIzquierda(){
-    negativoPositivo(MOTOR_DELANTERO_IN3, MOTOR_DELANTERO_IN4);
-    potenciarDireccion(MOTOR_DELANTERO_ENB);
-    delayMicroseconds(5);
-    despotenciar(MOTOR_DELANTERO_ENB);
-}
-
-void cambiarDireccionFrente(){
-    // TODO
-}
-
-void acelerarMotorTrasero(){
-    positivoNegativo(MOTOR_TRASERO_IN1, MOTOR_TRASERO_IN2);
-    potenciar(MOTOR_TRASERO_ENA);
-}
-
-void retrocederMotorTrasero(){
-    negativoPositivo(MOTOR_TRASERO_IN1, MOTOR_TRASERO_IN2);
-    retroceder(MOTOR_TRASERO_ENA);
-}
-
-void detenerse(){
-    retrocederMotorTrasero();
-    delay(500);
-    despotenciar(MOTOR_TRASERO_ENA);
-}
-
-void girarDerecha(){
-    // Retrocede girando para cambiar dirección
-    cambiarDireccionIzquierda();
-    delay(500);
-    retrocederMotorTrasero();
-    delay(1000);
-    despotenciar(MOTOR_TRASERO_ENA);
-    despotenciar(MOTOR_DELANTERO_ENB);
-    delay(800);
-
-    // Va hacia la derecha
-    cambiarDireccionDerecha();
-    delay(500);
-    acelerarMotorTrasero();
-    delay(1000);
-    despotenciar(MOTOR_TRASERO_ENA);
-    despotenciar(MOTOR_DELANTERO_ENB);
-    delay(800);
-}
-
-void girarIzquierda() {
-    // Retrocede girando para cambiar dirección
-    cambiarDireccionDerecha();
-    delay(500);
-    retrocederMotorTrasero();
-    delay(1000);
-    despotenciar(MOTOR_TRASERO_ENA);
-    despotenciar(MOTOR_DELANTERO_ENB);
-    delay(800);
-
-    // Va hacia la izquierda
-    cambiarDireccionIzquierda();
-    delay(500);
-    acelerarMotorTrasero();
-    delay(1000);
-    despotenciar(MOTOR_TRASERO_ENA);
-    despotenciar(MOTOR_DELANTERO_ENB);
-    delay(800);
-}
-
-void girar180(){
-    girarDerecha();
-
-    contador += 1;
-    if (contador == ciclo){
-        Serial.print("Contador : ");
-        Serial.println(contador);
-        Serial.println("Se vuelve a ejecutar para girar en 180°.");
-        girar180();
-    } else if (contador > ciclo){
-        Serial.println("Giro completado.");
-        
-        Serial.print("Contador : ");
-        Serial.println(contador);
-        Serial.println("Por lo tanto, estableciendo valor a 0.");
-        
-        contador = 0;
+        pinMode(pinIN1, OUTPUT);
+        pinMode(pinIN2, OUTPUT);
+        pinMode(pinEN, OUTPUT);
     }
-}
 
-void irAleatorio(){
-    randomSeed(analogRead(0)); // Añade esto en `setup()`
-    // Generar un número aleatorio que sea 0 o 1
-    int numeroAleatorio = random(0, 2); // Genera un número entre 0 (inclusive) y 2 (exclusive)
-
-    if (numeroAleatorio == 0){
-        girarDerecha();
-    } else if (numeroAleatorio == 1){
-        girarIzquierda();
+    int getEN() const {
+        return pinEN;
     }
-}
+
+    int getIN1() const {
+        return pinIN1;
+    }
+
+    int getIN2() const {
+        return pinIN2;
+    }
+
+    // Métodos para el control básico del motor
+    void positivoNegativo() {
+        digitalWrite(pinIN1, HIGH);
+        digitalWrite(pinIN2, LOW);
+    }
+
+    void negativoPositivo() {
+        digitalWrite(pinIN1, LOW);
+        digitalWrite(pinIN2, HIGH);
+    }
+
+    void neutro() {
+        digitalWrite(pinIN1, LOW);
+        digitalWrite(pinIN2, LOW);
+        analogWrite(pinEN, 0);
+    }
+
+    void potenciar(int potencia = 220) {
+        analogWrite(pinEN, potencia);
+    }
+
+    void despotenciar(int pin) {
+        analogWrite(pin, 0);
+        digitalWrite(pin, LOW);
+    }
+
+    void retroceder(int potencia = 255) {
+        analogWrite(pinEN, potencia);
+    }
+};
+
