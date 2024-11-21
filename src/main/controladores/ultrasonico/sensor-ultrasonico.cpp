@@ -1,25 +1,29 @@
 #include <Arduino.h>
-#include "sensor-ultrasonico.h"
 
-int TRIG_PIN, ECHO_PIN;
+class Ultrasonico {
+private:
+    int triggerPin;
+    int echoPin;
 
-void inicializarUltrasonico(int trig, int echo){
-  TRIG_PIN = trig;
-  ECHO_PIN = echo;
-  
-  pinMode(TRIG_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
-}
+public:
+    // Constructor para inicializar los pines del sensor
+    Ultrasonico(int trigPin, int echPin) {
+        triggerPin = trigPin;
+        echoPin = echPin;
+        pinMode(triggerPin, OUTPUT);
+        pinMode(echoPin, INPUT);
+    }
 
-float calcularDistancia(){
-  digitalWrite(TRIG_PIN, LOW);
-  delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
+    // Método para obtener la distancia medida por el sensor
+    long obtenerDistancia() {
+        digitalWrite(triggerPin, LOW);
+        delayMicroseconds(2);
+        digitalWrite(triggerPin, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(triggerPin, LOW);
 
-  long duracion = pulseIn(ECHO_PIN, HIGH);
-  float distancia = duracion * 0.034 / 2;
-  return distancia;
-
-}
+        long duracion = pulseIn(echoPin, HIGH);
+        long distancia = duracion * 0.034 / 2; // Calcular distancia en cm
+        return distancia;
+    }
+};

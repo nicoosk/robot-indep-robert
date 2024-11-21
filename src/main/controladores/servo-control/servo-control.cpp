@@ -1,22 +1,25 @@
-#include <Arduino.h>
-#include "servo-control.h"
 #include <Servo.h>
+#include <Arduino.h>
 
-Servo servo;
+class ServoMotor {
+private:
+    Servo servo;
+    int pin;
 
-void inicializarServo(int pin){
-    servo.attach(pin);
-    mirarFrente();
-}
+public:
+    // Constructor para inicializar el pin del servo
+    ServoMotor(int servoPin) {
+        pin = servoPin;
+        servo.attach(pin);
+    }
 
-void mirarIzquierda(){
-    servo.write(170);
-}
+    // Método para mover el servo a un ángulo específico
+    void moverA(int angulo) {
+        servo.write(angulo);
+    }
 
-void mirarFrente(){
-    servo.write(80);
-}
-
-void mirarDerecha(){
-    servo.write(1);
-}
+    // Método para desactivar el servo si es necesario
+    void desactivar() {
+        servo.detach();
+    }
+};
